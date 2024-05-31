@@ -9,13 +9,17 @@ data class StudentJson(
     val result: Double,
     val pointsInSemester: Int
 )
-
+/*
 fun List<StudentJson>.getPassingSurnames(): List<String> =
     this.filter { it.result >= 50 }
         .filter { it.pointsInSemester >= 15 }
         .map { it.surname }
         .filter { it != null }
         .map { it!! }
+*/
+fun List<StudentJson>.getPassingSurnames(): List<String> = this.mapNotNull { it.myFilter() }
+
+fun StudentJson.myFilter() = if (this.result >= 50 && this.pointsInSemester >= 15) { this.surname } else null
 
 class PassingSurnamesTest {
     @Test
